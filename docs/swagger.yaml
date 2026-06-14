@@ -1,0 +1,202 @@
+basePath: /
+definitions:
+  entities.FrontendSubscription:
+    properties:
+      end_date:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      start_date:
+        type: string
+      user_id:
+        type: string
+    type: object
+  entities.Subscription:
+    properties:
+      end_date:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      start_date:
+        type: string
+      user_id:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API на Go для отслеживания подписок и суммы стоимости с фильтрами
+  title: Subs service on Go
+  version: "1.0"
+paths:
+  /subs:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Subscription'
+            type: array
+        "500":
+          description: failed to get sub
+          schema:
+            type: string
+      summary: Получить список подписок
+      tags:
+      - subscriptions
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные подписки
+        in: body
+        name: subscription
+        required: true
+        schema:
+          $ref: '#/definitions/entities.FrontendSubscription'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: successfully created new sub
+          schema:
+            type: string
+        "400":
+          description: failed to parse request data
+          schema:
+            type: string
+        "500":
+          description: failed to create sub
+          schema:
+            type: string
+      summary: Создать подписку
+      tags:
+      - subscriptions
+  /subs/{id}:
+    delete:
+      parameters:
+      - description: ID подписки
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: successfully deleted sub
+          schema:
+            type: string
+        "500":
+          description: 'Error: Failed to delete subscription'
+          schema:
+            type: string
+      summary: Удалить подписку
+      tags:
+      - subscriptions
+    get:
+      parameters:
+      - description: ID подписки
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Subscription'
+        "500":
+          description: failed to get sub
+          schema:
+            type: string
+      summary: Получить подписку по ID
+      tags:
+      - subscriptions
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID подписки
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные подпискиЫ
+        in: body
+        name: subscription
+        required: true
+        schema:
+          $ref: '#/definitions/entities.FrontendSubscription'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: successfully updated sub
+          schema:
+            type: string
+        "400":
+          description: failed to parse request data
+          schema:
+            type: string
+        "500":
+          description: failed to update sub
+          schema:
+            type: string
+      summary: Обновить подписку
+      tags:
+      - subscriptions
+  /subs/sum:
+    get:
+      parameters:
+      - description: Название (имя) подписки
+        in: query
+        name: name
+        type: string
+      - description: ID пользователя UUID
+        in: query
+        name: user_id
+        type: string
+      - description: Начало периода в формате MM-YYYY
+        in: query
+        name: period_start
+        type: string
+      - description: Конец периода в формате MM-YYYY
+        in: query
+        name: period_end
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: failed to parse period
+          schema:
+            type: string
+        "500":
+          description: 'Error: Failed to count summ'
+          schema:
+            type: string
+      summary: Посчитать суммарную стоимость подписок с фильтрами по имени, uuid пользователя,
+        за выбранный период
+      tags:
+      - subscriptions
+schemes:
+- http
+swagger: "2.0"

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Подписки</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <div class="create-subs-container">
+        <h1>Добавить подписку</h1>
+        <div class="create-subs-field">
+            <p>Имя</p>
+            <input type="text" class="create-subs-name">
+        </div>
+        <div class="create-subs-field">
+            <p>Цена</p>
+            <input type="number" class="create-subs-price">
+        </div>
+        <div class="create-subs-field">
+            <p>ID пользователя (uuid)</p>
+            <input type="text" class="create-subs-user">
+        </div>
+        <div class="create-subs-field">
+            <p>Начало (формат: 01-2006)</p>
+            <input type="text" class="create-subs-start">
+        </div>
+        <div class="create-subs-field">
+            <p>Конец (формат: 01-2006)</p>
+            <input type="text" class="create-subs-end">
+        </div>
+        <button class="create-subs-button">Создать</button>
+    </div>
+    <div class="subs-container">
+        <h1>Подписки</h1>
+        <p class="subs-filter">Сумма</p>
+        <div class="filter-container hidden">
+            <p class="filter-close-button">Закрыть</p>
+            <h3>Период (формат 01-2006)</h3>
+            <div class="filter-period-container">
+                <p>Начало: </p>
+                <input type="text" class="filter-period-start">
+            </div>
+            <div class="filter-period-container">
+                <p>Конец(включительно): </p>
+                <input type="text" class="filter-period-end">
+            </div>
+            <h3>Название подписки</h3>
+            <input type="text" class="filter-name">
+            <h3>UUID пользователя</h3>
+            <input type="text" class="filter-user-id">
+            <button class="filter-go">Посчитать</button>
+            <div class="filter-answer-container hidden">
+                <p class="filter-answer"></p>
+            </div>
+        </div>
+        <div class="subs-list"></div>
+    </div>
+    <script src="/script.js"></script>
+</body>
+
+</html>

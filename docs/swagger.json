@@ -1,0 +1,308 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "API на Go для отслеживания подписок и суммы стоимости с фильтрами",
+        "title": "Subs service on Go",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/subs": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Получить список подписок",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entities.Subscription"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "failed to get sub",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Создать подписку",
+                "parameters": [
+                    {
+                        "description": "Данные подписки",
+                        "name": "subscription",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entities.FrontendSubscription"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully created new sub",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "failed to parse request data",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "failed to create sub",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/subs/sum": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Посчитать суммарную стоимость подписок с фильтрами по имени, uuid пользователя, за выбранный период",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Название (имя) подписки",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID пользователя UUID",
+                        "name": "user_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Начало периода в формате MM-YYYY",
+                        "name": "period_start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Конец периода в формате MM-YYYY",
+                        "name": "period_end",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "failed to parse period",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Error: Failed to count summ",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/subs/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Получить подписку по ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID подписки",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entities.Subscription"
+                        }
+                    },
+                    "500": {
+                        "description": "failed to get sub",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Обновить подписку",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID подписки",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Обновленные данные подпискиЫ",
+                        "name": "subscription",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entities.FrontendSubscription"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully updated sub",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "failed to parse request data",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "failed to update sub",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscriptions"
+                ],
+                "summary": "Удалить подписку",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID подписки",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully deleted sub",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Error: Failed to delete subscription",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "entities.FrontendSubscription": {
+            "type": "object",
+            "properties": {
+                "end_date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "start_date": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "entities.Subscription": {
+            "type": "object",
+            "properties": {
+                "end_date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "start_date": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
