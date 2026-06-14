@@ -270,11 +270,11 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "name": {
-                    "type": "string"
-                },
                 "price": {
                     "type": "integer"
+                },
+                "service_name": {
+                    "type": "string"
                 },
                 "start_date": {
                     "type": "string"
@@ -293,11 +293,11 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "name": {
-                    "type": "string"
-                },
                 "price": {
                     "type": "integer"
+                },
+                "service_name": {
+                    "type": "string"
                 },
                 "start_date": {
                     "type": "string"

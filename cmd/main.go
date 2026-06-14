@@ -16,13 +16,13 @@ import (
 func main() {
 	App, err := app.New()
 	if err != nil {
-		slog.Error("Failed to build app: ", "Erorr", err)
+		slog.Error("Failed to build app: ", "Error", err)
 		os.Exit(1)
 	}
 
 	err = App.Run()
 	if err != nil {
-		slog.Error("Failed to run app: ", "Erorr", err)
+		slog.Error("Failed to run app: ", "Error", err)
 		os.Exit(1)
 	}
 }

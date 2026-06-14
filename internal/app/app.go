@@ -185,7 +185,7 @@ func (app *App) deleteSubscription(c echo.Context) error {
 // @Failure 500 {string} string "Error: Failed to count summ"
 // @Router /subs/sum [get]
 func (app *App) sumSubsPrices(c echo.Context) error {
-	filterName := c.QueryParam("name")
+	filterName := c.QueryParam("service_name")
 	filterUserID := c.QueryParam("user_id")
 	var periodStart *time.Time
 	if c.QueryParam("period_start") != "" {

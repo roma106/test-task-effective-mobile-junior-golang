@@ -5,7 +5,7 @@ createSubsButton.addEventListener("click", CreateSubscription);
 
 function CreateSubscription() {
     let data = {
-        name: document.querySelector(".create-subs-name").value,
+        service_name: document.querySelector(".create-subs-name").value,
         price: Number(document.querySelector(".create-subs-price").value),
         user_id: document.querySelector(".create-subs-user").value,
         start_date: document.querySelector(".create-subs-start").value,
@@ -46,7 +46,7 @@ function GetSubs() {
                 newSub.classList.add("sub");
 
                 newSub.innerHTML = `
-                    <p class="sub-info">${sub.name}</p>
+                    <p class="sub-info">${sub.service_name}</p>
                     <p class="sub-info">${sub.price}</p>
                     <p class="sub-info">${sub.user_id}</p>
                     <p class="sub-info">${ParseDate(sub.start_date)}</p>
@@ -110,7 +110,7 @@ function EditSub(readyBtn){
     let inputs = readyBtn.parentElement.querySelectorAll(".edit-sub-input");
     let data = {
         id: Number(readyBtn.id),
-        name: inputs[0].value,
+        service_name: inputs[0].value,
         price: Number(inputs[1].value),
         user_id: inputs[2].value,
         start_date: inputs[3].value,
@@ -172,13 +172,13 @@ let answerContainer = document.querySelector(".filter-answer-container")
 
 function CountSum(){
     let data = {
-        name: document.querySelector(".filter-name").value,
+        service_name: document.querySelector(".filter-name").value,
         user_id: document.querySelector(".filter-user-id").value,
         start_date: document.querySelector(".filter-period-start").value,
         end_date: document.querySelector(".filter-period-end").value,
     }
 
-    fetch("/subs/sum?name="+data.name+"&user_id="+data.user_id+"&period_start="+data.start_date+"&period_end="+data.end_date, {
+    fetch("/subs/sum?service_name=" + data.service_name +"&user_id="+data.user_id+"&period_start="+data.start_date+"&period_end="+data.end_date, {
         method: "GET"
     }).then(res =>{
         if (!res.ok){
