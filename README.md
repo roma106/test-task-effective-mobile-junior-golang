@@ -1,7 +1,7 @@
 ## REST-сервис для агрегации данных об онлайн подписках пользователей
 ### Тестовое задание Junior Golang Developer Effective Mobile
 
-Swagger-документация 👉 localhost:8080/swagger/index.html
+Swagger-документация 👉 ``` localhost:8080/swagger/index.html ```
 
 ### Запуск
 
